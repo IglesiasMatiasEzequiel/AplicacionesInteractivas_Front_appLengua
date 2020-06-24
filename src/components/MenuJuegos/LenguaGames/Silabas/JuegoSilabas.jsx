@@ -5,9 +5,6 @@ import MenuJuegosNavbar from '../../MenuJuegosNavbar/MenuJuegosNavbar';
 import SilabaCard from './SilabaCard';
 import { getJuegoById } from '../../../../services/juegosServices';
 import { createParticipacion } from '../../../../services/participacionServices';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardMedia from '@material-ui/core/CardMedia';
 import loading from '../../../../assets/Images/Loading_kids.gif';
 
 import Container from '@material-ui/core/Container';
@@ -194,7 +191,7 @@ export class JuegoSilabas extends React.Component {
                 }
                 {this.state.isLoading &&
                     <Container maxWidth="md" style={{ textAlign: "center", paddingTop: "25vh" }}>
-                        <img src={loading} alt="Cargando..." style={{ height: "25vh", marginBottom: "2vh" }} />
+                        <img src={loading} alt="Cargando..." style={{ height: "25vw", marginBottom: "2vh" }} />
                         <Typography variant="h4">Cargando juego...</Typography>
                     </Container>
                 }

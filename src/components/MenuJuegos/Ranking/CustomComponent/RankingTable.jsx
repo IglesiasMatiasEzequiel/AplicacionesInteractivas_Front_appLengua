@@ -56,9 +56,9 @@ class InteractiveList extends Component{
                                             <TableCell component="th" scope="row" className="TableCell">
                                                 {(index<=2) ? this.witchBadge(index) : index+1}
                                             </TableCell>
-                                            <TableCell className="tableCell" numeric>{posicion.usuario.username}</TableCell>
+                                            <TableCell className="tableCell" numeric>{posicion?.usuario?.username ?? '-'}</TableCell>
                                             <TableCell className="tableCell" numeric>
-                                                <CountUp end={posicion.puntajeTotal} duration={3}/>
+                                                <CountUp end={posicion?.puntajeTotal ?? 0} duration={3}/>
                                             </TableCell>
                                         </TableRow>
                                     );
