@@ -191,7 +191,7 @@ export class JuegoSilabas extends React.Component {
                 }
                 {this.state.isLoading &&
                     <Container maxWidth="md" style={{ textAlign: "center", paddingTop: "25vh" }}>
-                        <img src={loading} alt="Cargando..." style={{ height: "25vw", marginBottom: "2vh" }} />
+                        <img src={loading} alt="Cargando..." style={{ height: "25vh", marginBottom: "2vh" }} />
                         <Typography variant="h4">Cargando juego...</Typography>
                     </Container>
                 }
