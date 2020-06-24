@@ -13,11 +13,7 @@ export const listJuegos = () => {
 }
 
 export const getJuegoById = (idJuego) => {
-    return axios
-    .get(endpoints.getJuegoById + '?id=' + idJuego, authorizationConfig)
-    .then((response) => { 
-        return response.data; 
-    });
+    return axios.get(endpoints.getJuegoById + '?id=' + idJuego, authorizationConfig);
 }
 
 

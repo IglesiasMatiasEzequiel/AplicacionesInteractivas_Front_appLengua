@@ -31,9 +31,9 @@ export class JuegoSilabas extends React.Component {
 
         getJuegoById(1).then((response) => {
 
-            var primerNivel = response.niveles && response.niveles.length > 0 ? response.niveles[0] : null;
+            var primerNivel = response.data.niveles && response.data.niveles.length > 0 ? response.data.niveles[0] : null;
             var primeraPalabra = primerNivel && primerNivel.palabras && primerNivel.palabras.length > 0 ? primerNivel.palabras[0] : null;
-
+            
             this.setState(prevState => ({
                 ...prevState,
                 juego: response,
@@ -154,9 +154,6 @@ export class JuegoSilabas extends React.Component {
     };
 
     render() {
-
-        console.log('level: ' + this.state.levelScore);
-        console.log('total: ' + this.state.totalScore);
 
         return (
             <div className="backgroundImage">
