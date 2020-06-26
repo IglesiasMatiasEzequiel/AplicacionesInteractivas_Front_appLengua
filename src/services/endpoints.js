@@ -1,10 +1,9 @@
-const urlApi = process.env.BACKEND_APP_URL || "https://apilenguaback.herokuapp.com";
+const urlApi = process.env.BACKEND_APP_URL || "https://apilenguaback.herokuapp.com";//"http://localhost:8000"; 
 
 const endpoints = {
    //auth endpoints
     login:`${urlApi}/api/auth/login`,
     register:`${urlApi}/api/auth/register`,
-    isSessionActive:`${urlApi}/api/auth/validateToken`,
 
     //User endpoints
     findUserByUsername:`${urlApi}/api/usuarios/find`,

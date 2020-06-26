@@ -64,7 +64,7 @@ class Ranking extends Component {
     render() {
 
         return (
-            <div>
+            <div className="backgroundImage">
                 <MenuJuegosNavbar />
                 <div className="rankingContainer">
                     <div className="rankingContainer--title">
