@@ -31,31 +31,29 @@ export class JuegoSilabas extends React.Component {
             levelScore: 0
         }
 
-        setTimeout(() => {
-            getJuegoById(1).then((response) => {
+        getJuegoById(1).then((response) => {
 
-                var primerNivel = response.data.niveles && response.data.niveles.length > 0 ? response.data.niveles[0] : null;
-                var primeraPalabra = primerNivel && primerNivel.palabras && primerNivel.palabras.length > 0 ? primerNivel.palabras[0] : null;
+            var primerNivel = response.data.niveles && response.data.niveles.length > 0 ? response.data.niveles[0] : null;
+            var primeraPalabra = primerNivel && primerNivel.palabras && primerNivel.palabras.length > 0 ? primerNivel.palabras[0] : null;
 
-                this.setState(prevState => ({
-                    ...prevState,
-                    juego: response.data,
-                    nivelActual: primerNivel,
-                    palabraActual: primeraPalabra,
-                    isLoading: false
-                }));
-            })
-                .catch(error => {
-                    console.log(error);
-                    this.setState(prevState => ({
-                        ...prevState,
-                        juego: null,
-                        nivelActual: null,
-                        palabraActual: null,
-                        isLoading: false
-                    }));
-                });
-        }, 3000);
+            this.setState(prevState => ({
+                ...prevState,
+                juego: response.data,
+                nivelActual: primerNivel,
+                palabraActual: primeraPalabra,
+                isLoading: false
+            }));
+        })
+        .catch(error => {
+            console.log(error);
+            this.setState(prevState => ({
+                ...prevState,
+                juego: null,
+                nivelActual: null,
+                palabraActual: null,
+                isLoading: false
+            }));
+        });
 
         this.onOptionClick = this.onOptionClick.bind(this);
         this.onGoToNextLevel = this.onGoToNextLevel.bind(this);

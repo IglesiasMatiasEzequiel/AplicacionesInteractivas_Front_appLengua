@@ -4,7 +4,6 @@ const endpoints = {
    //auth endpoints
     login:`${urlApi}/api/auth/login`,
     register:`${urlApi}/api/auth/register`,
-    isSessionActive:`${urlApi}/api/auth/validateToken`,
 
     //User endpoints
     findUserByUsername:`${urlApi}/api/usuarios/find`,
@@ -13,7 +12,6 @@ const endpoints = {
     //Juegos endpoints
     listJuegos:`${urlApi}/api/juegos/list`,
     getJuegoById:`${urlApi}/api/juegos/getById`,
-    getJuegoByIdCom:`${urlApi}/api/juegos/getByIdCom`,
 
     //Participacion endpoints
     createParticipacion:`${urlApi}/api/participacion/create`,
