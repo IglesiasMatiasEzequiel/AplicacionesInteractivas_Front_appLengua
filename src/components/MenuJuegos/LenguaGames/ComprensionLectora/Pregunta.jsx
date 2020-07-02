@@ -76,9 +76,12 @@ export default function CustomizedRadios ({ level, actualPregunta }) {
     <FormControl component="fieldset">
       {/* <FormLabel component="legend">¿Dónde se está instalando el circo?</FormLabel> */}
       <RadioGroup aria-label="gender" name="customized-radios" value={value} onChange={handleChange}> 
-        <FormControlLabel value="op1" control={<StyledRadio />} label={level.opciones[actualPregunta].op1} />
+        {/* <FormControlLabel value="op1" control={<StyledRadio />} label={level.opciones[actualPregunta].op1} />
         <FormControlLabel value="op2" control={<StyledRadio />} label={level.opciones[actualPregunta].op2} />
-        <FormControlLabel value="op3" control={<StyledRadio />} label={level.opciones[actualPregunta].op3} />
+        <FormControlLabel value="op3" control={<StyledRadio />} label={level.opciones[actualPregunta].op3} /> */}
+        <FormControlLabel value="op1" control={<StyledRadio />} label={level.preguntas[actualPregunta].opcion1} />
+        <FormControlLabel value="op2" control={<StyledRadio />} label={level.preguntas[actualPregunta].opcion2} />
+        <FormControlLabel value="op3" control={<StyledRadio />} label={level.preguntas[actualPregunta].opcion3} />
       </RadioGroup>
     </FormControl>
   );

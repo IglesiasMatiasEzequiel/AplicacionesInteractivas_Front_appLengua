@@ -1,4 +1,4 @@
-const urlApi = process.env.BACKEND_APP_URL || "https://apilenguaback.herokuapp.com";
+const urlApi = process.env.BACKEND_APP_URL || "http://localhost:8000"; //"https://apilenguaback.herokuapp.com";
 
 const endpoints = {
    //auth endpoints
@@ -13,6 +13,7 @@ const endpoints = {
     //Juegos endpoints
     listJuegos:`${urlApi}/api/juegos/list`,
     getJuegoById:`${urlApi}/api/juegos/getById`,
+    getJuegoByIdCom:`${urlApi}/api/juegos/getByIdCom`,
 
     //Participacion endpoints
     createParticipacion:`${urlApi}/api/participacion/create`,
