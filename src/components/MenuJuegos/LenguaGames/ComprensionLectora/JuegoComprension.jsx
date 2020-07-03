@@ -35,7 +35,6 @@ export class JuegoComprension extends React.Component {
 
         this.onOptionClick = this.onOptionClick.bind(this);
         this.onGoToNextLevel = this.onGoToNextLevel.bind(this);
-
     }
 
     async componentDidMount() {
@@ -147,7 +146,7 @@ export class JuegoComprension extends React.Component {
 
                 {!this.state.isLoading &&
                     <div>
-                        {!this.state.nivelTerminado ?
+                        {/* {!this.state.nivelTerminado ?
 
                             <div>
                                 <TituloGeneral level={this.state.nivelActual} />
@@ -169,7 +168,9 @@ export class JuegoComprension extends React.Component {
                                 juegoTerminado={this.state.juegoTerminado}
                                 onGoToNextLevelHandler={this.onGoToNextLevel}
                                 isSaving={this.state.isSaving} />
-                        }
+                        } */}
+
+                        <h1>{this.state.juego}</h1>
                     </div>
                 }
                 {this.state.isLoading &&
