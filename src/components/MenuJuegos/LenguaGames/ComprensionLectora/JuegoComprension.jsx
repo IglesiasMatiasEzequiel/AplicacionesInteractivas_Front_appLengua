@@ -146,9 +146,9 @@ export class JuegoComprension extends React.Component {
             <div className="backgroundImage">
                 <MenuJuegosNavbar />
 
-                {!this.state.isLoading &&
+                {!this.state.isLoading && this.state.juego &&
                     <div>
-                        {!this.state.nivelTerminado && this.state.juego ?
+                        {!this.state.nivelTerminado ?
 
                             <div>
                                 <TituloGeneral level={this.state.nivelActual} />
