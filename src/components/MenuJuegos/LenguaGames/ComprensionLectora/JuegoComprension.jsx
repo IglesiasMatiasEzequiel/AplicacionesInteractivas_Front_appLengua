@@ -179,6 +179,7 @@ export class JuegoComprension extends React.Component {
         {
             return (
                 <div className="backgroundImage">
+                    <MenuJuegosNavbar />
                     <Container maxWidth="md" style={{ textAlign: "center", paddingTop: "25vh" }}>
                         <img src={loading} alt="Cargando..." style={{ height: "25vh", marginBottom: "2vh" }} />
                         <Typography variant="h4">Cargando juego...</Typography>
