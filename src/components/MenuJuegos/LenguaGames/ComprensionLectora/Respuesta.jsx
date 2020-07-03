@@ -43,7 +43,7 @@ const Respuesta= ({ level, actualPregunta, onOptionClick, opcionElegida, handleC
     return (
         <Container maxWidth="sm" className={classes.consignaContainer}>
             <Card className={classes.root}>
-                <CardHeader title={level.preguntas[actualPregunta].pregunta} />
+                <CardHeader title={level?.preguntas[actualPregunta]?.pregunta ?? '-'} />
                 <Container maxWidth="sm" className={classes.preguntaContainer}>
                     <Pregunta level={level} actualPregunta={actualPregunta} opcionElegida={opcionElegida} handleChangeOpcion={handleChangeOpcion}/>               
                 </Container>

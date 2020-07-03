@@ -40,9 +40,9 @@ export class JuegoComprension extends React.Component {
     async componentDidMount() {
 
         const responseJuego = await getJuegoById(3);
-        
+
         await new Promise(resolve => setTimeout(resolve, 3000));
-        
+
         var primerNivel = responseJuego.data.niveles && responseJuego.data.niveles.length > 0 ? responseJuego.data.niveles[0] : null;
         var primeraPregunta = primerNivel && primerNivel.preguntas && primerNivel.preguntas.length > 0 ? primerNivel.preguntas[0] : null;
 
@@ -64,14 +64,14 @@ export class JuegoComprension extends React.Component {
     };
 
     onOptionClick() {
-        
+
         var opcionElegida = parseInt(document.querySelector('input[name="radioButtons-preguntas"]:checked').value);
 
         if (opcionElegida === this.state.nivelActual.preguntas[this.state.actualPregunta].respuesta) {
 
             this.setState(prevState => ({
                 ...prevState,
-                puntajeNivel: prevState.puntajeNivel + prevState.nivelActual.levelScore 
+                puntajeNivel: prevState.puntajeNivel + prevState.nivelActual.levelScore
             }));
         }
 
@@ -142,11 +142,11 @@ export class JuegoComprension extends React.Component {
 
         console.log(this.state.juego);
 
-        return (
-            <div className="backgroundImage">
-                <MenuJuegosNavbar />
+        if (this.state.juego) {
 
-                {!this.state.isLoading && this.state.juego &&
+            return (
+                <div className="backgroundImage">
+                    <MenuJuegosNavbar />
                     <div>
                         {!this.state.nivelTerminado ?
 
@@ -156,12 +156,12 @@ export class JuegoComprension extends React.Component {
                                     <Texto level={this.state.nivelActual} />
                                 </Container>
                                 <Container maxWidth="md">
-                                    <Respuesta 
-                                        level={this.state.nivelActual} 
-                                        actualPregunta={this.state.actualPregunta} 
-                                        onOptionClick={this.onOptionClick} 
-                                        handleChangeOpcion={this.handleChangeOpcion}  
-                                        opcionElegida={this.state.opcionElegida}/>
+                                    <Respuesta
+                                        level={this.state.nivelActual}
+                                        actualPregunta={this.state.actualPregunta}
+                                        onOptionClick={this.onOptionClick}
+                                        handleChangeOpcion={this.handleChangeOpcion}
+                                        opcionElegida={this.state.opcionElegida} />
                                 </Container>
                             </div>
                             :
@@ -172,16 +172,20 @@ export class JuegoComprension extends React.Component {
                                 isSaving={this.state.isSaving} />
                         }
                     </div>
-                }
-                {this.state.isLoading &&
+                </div>
+            );
+        }
+        else
+        {
+            return (
+                <div>
                     <Container maxWidth="md" style={{ textAlign: "center", paddingTop: "25vh" }}>
                         <img src={loading} alt="Cargando..." style={{ height: "25vh", marginBottom: "2vh" }} />
                         <Typography variant="h4">Cargando juego...</Typography>
                     </Container>
-                }
-
-            </div>
-        );
+                </div>
+            );
+        }
     }
 }
 
