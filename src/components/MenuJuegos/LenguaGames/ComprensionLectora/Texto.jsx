@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MediaControlCard ({ level }) {
   const classes = useStyles();
-  const theme = useTheme();
+  //const theme = useTheme();
 
   return (
     <Card className={classes.root}>
@@ -46,17 +46,14 @@ export default function MediaControlCard ({ level }) {
         <CardContent className={classes.content}>
           <Typography component="h5" variant="h5">
                 {/* Llega el circo */}
-                {level.titulotexto}
+                {/* {level.titulotexto} */}
+                {level.palabras[0].palabra}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-                {/* Cerca de la casa de Anita se está instalando un circo. Ella, con mucha
-                curiosidad, ha visto cómo han levantado la carpa de colores y cómo han
-                traído toda clase de animales encerrados en enormes jaulas. Todos están
-                allí, desde los alegres monos hasta los rugientes leones.
-                La plaza se ha llenado de actividad. Payasos, acróbatas y domadores
-                ensayan para el gran día. Anita, que nunca ha ido al circo, espera ansiosa
-                su inauguración. */}
-                {level.texto}
+                {/* Cerca de la casa de Anita se está instalando un circo. Ella, ....... */}
+                {/* {level.texto} */}
+                {level.title}
+                {level.palabras[0].imgPach}
           </Typography>
         </CardContent>
       </div>

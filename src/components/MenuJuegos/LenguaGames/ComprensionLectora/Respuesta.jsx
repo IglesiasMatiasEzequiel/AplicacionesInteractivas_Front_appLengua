@@ -44,7 +44,16 @@ const Respuesta= ({ level, actualPregunta, onOptionClick }) => {
         <Container maxWidth="sm" className={classes.consignaContainer}>
             <Card className={classes.root}>
                 {/* <CardHeader title={"¿Dónde se está instalando el circo?"} /> */}
-                <CardHeader title={level.preguntas[actualPregunta].value} />
+                {/* <CardHeader title={level.preguntas[actualPregunta].value} />
+                <Container maxWidth="sm" className={classes.preguntaContainer}>
+                    <Pregunta level={level} actualPregunta={actualPregunta} />               
+                </Container>
+                <LinearProgress variant="determinate" value={Math.min(Math.round(actualPregunta * 100 / level.preguntas.length), 100)} className={classes.linearProgress}/>
+                <Container maxWidth="sm" className={classes.buttonsContainer}>
+                    <Button variant="contained" className={classes.silabaCardButton} onClick={() => onOptionClick() }>Responder y Seguir</Button>              
+                </Container> */}
+
+                <CardHeader title={level.preguntas[actualPregunta].pregunta} />
                 <Container maxWidth="sm" className={classes.preguntaContainer}>
                     <Pregunta level={level} actualPregunta={actualPregunta} />               
                 </Container>

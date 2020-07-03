@@ -19,11 +19,17 @@ const TituloGeneral= ({ level }) => {
     const classes = useStyles();
 
     return (
+        // <Container maxWidth="sm" className={classes.consignaContainer}>
+        //     <Card className={classes.root}>
+        //         <CardHeader title={level.title + ' - ' + level.description} />
+        //         {/* <CardHeader title={"Nivel 1" + ' - ' + "100 Palabras"} /> */}
+        //         <Alert severity="info">{level.consigna}</Alert>
+        //     </Card>
+        // </Container>
         <Container maxWidth="sm" className={classes.consignaContainer}>
             <Card className={classes.root}>
                 <CardHeader title={level.title + ' - ' + level.description} />
-                {/* <CardHeader title={"Nivel 1" + ' - ' + "100 Palabras"} /> */}
-                <Alert severity="info">{level.consigna}</Alert>
+                <Alert severity="info">{level.statement}</Alert>
             </Card>
         </Container>
 

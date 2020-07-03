@@ -44,6 +44,9 @@ class Header extends Component {
         });
 
         if (response.status === 200) {
+
+            console.log('loeguoe ok');
+
             this.setState({ loading: false });
             this.props.history.push({
                 pathname: '/games',
