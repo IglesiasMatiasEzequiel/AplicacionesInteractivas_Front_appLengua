@@ -33,35 +33,27 @@ export class JuegoComprension extends React.Component {
             opcionElegida: null
         }
 
-        setTimeout(() => {
-            getJuegoById(3).then((response) => {
-
-                var primerNivel = response.data.niveles && response.data.niveles.length > 0 ? response.data.niveles[0] : null;
-                var primeraPregunta = primerNivel && primerNivel.preguntas && primerNivel.preguntas.length > 0 ? primerNivel.preguntas[0] : null;
-
-                this.setState(prevState => ({
-                    ...prevState,
-                    juego: response.data,
-                    nivelActual: primerNivel,
-                    preguntaActual: primeraPregunta,
-                    isLoading: false
-                }));
-            })
-                .catch(error => {
-                    console.log(error);
-                    this.setState(prevState => ({
-                        ...prevState,
-                        juego: null,
-                        nivelActual: null,
-                        palabraActual: null,
-                        isLoading: false
-                    }));
-                });
-        }, 1500);
-
         this.onOptionClick = this.onOptionClick.bind(this);
         this.onGoToNextLevel = this.onGoToNextLevel.bind(this);
 
+    }
+
+    async componentDidMount() {
+
+        const responseJuego = await getJuegoById(3);
+        
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        var primerNivel = responseJuego.data.niveles && responseJuego.data.niveles.length > 0 ? responseJuego.data.niveles[0] : null;
+        var primeraPregunta = primerNivel && primerNivel.preguntas && primerNivel.preguntas.length > 0 ? primerNivel.preguntas[0] : null;
+
+        this.setState(prevState => ({
+            ...prevState,
+            juego: responseJuego.data,
+            nivelActual: primerNivel,
+            preguntaActual: primeraPregunta,
+            isLoading: false
+        }));
     }
 
     handleChangeOpcion = (event) => {

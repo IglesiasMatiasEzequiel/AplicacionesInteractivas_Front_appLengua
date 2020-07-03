@@ -31,35 +31,26 @@ export class Ortografia extends React.Component {
             levelScore: 0
         }
 
-        setTimeout(() => {
-            getJuegoById(2).then((response) => {
-
-                var primerNivel = response.data.niveles && response.data.niveles.length > 0 ? response.data.niveles[0] : null;
-                var primeraPalabra = primerNivel && primerNivel.palabras && primerNivel.palabras.length > 0 ? primerNivel.palabras[0] : null;
-
-                this.setState(prevState => ({
-                    ...prevState,
-                    juego: response.data,
-                    nivelActual: primerNivel,
-                    palabraActual: primeraPalabra,
-                    isLoading: false
-                }));
-            })
-                .catch(error => {
-                    console.log(error);
-                    this.setState(prevState => ({
-                        ...prevState,
-                        juego: null,
-                        nivelActual: null,
-                        palabraActual: null,
-                        isLoading: false
-                    }));
-                });
-        }, 1500);
-
-
         this.onOptionClick = this.onOptionClick.bind(this);
         this.onGoToNextLevel = this.onGoToNextLevel.bind(this);
+    }
+
+    async componentDidMount() {
+
+        const responseJuego = await getJuegoById(2);
+
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        var primerNivel = responseJuego.data.niveles && responseJuego.data.niveles.length > 0 ? responseJuego.data.niveles[0] : null;
+        var primeraPalabra = primerNivel && primerNivel.palabras && primerNivel.palabras.length > 0 ? primerNivel.palabras[0] : null;
+
+        this.setState(prevState => ({
+            ...prevState,
+            juego: responseJuego.data,
+            nivelActual: primerNivel,
+            palabraActual: primeraPalabra,
+            isLoading: false
+        }));
     }
 
     onOptionClick(opcion) {

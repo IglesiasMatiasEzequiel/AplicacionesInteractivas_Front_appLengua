@@ -12,11 +12,12 @@ export const listJuegos = () => {
     }
 }
 
-export const getJuegoById = (idJuego) => {
-    return axios.get(endpoints.getJuegoById + '?id=' + idJuego, authorizationConfig);
-}
-export const getJuegoByIdCom = (idJuego) => {
-    return axios.get(endpoints.getJuegoByIdCom + '?id=' + idJuego, authorizationConfig);
+export const getJuegoById = async (idJuego) => {
+    try {
+        return await axios.get(endpoints.getJuegoById + '?id=' + idJuego, authorizationConfig);
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 
