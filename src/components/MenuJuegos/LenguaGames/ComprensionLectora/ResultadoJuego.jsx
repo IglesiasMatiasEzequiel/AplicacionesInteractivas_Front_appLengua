@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ResultadoJuego = ({ puntajeNivel, puntajeTotal, actualLevel, juegoTerminado, onGoToNextLevelHandler }) => {
+const ResultadoJuego = ({ puntajeNivel, puntajeTotal, actualLevel, juegoTerminado, onGoToNextLevelHandler, isSaving }) => {
 
     const classes = useStyles();
 
@@ -41,7 +41,7 @@ const ResultadoJuego = ({ puntajeNivel, puntajeTotal, actualLevel, juegoTerminad
         <Container height="75%" maxWidth="md" className={classes.nextLevelContainer}>
 
             <Card>
-                <CardHeader title={"Felicitaciones, terminaste el " + (!juegoTerminado? "nivel" : "juego") + " " + actualLevel + "!"} className={classes.nextLevelTitle} />
+                <CardHeader title={"Felicitaciones, terminaste el " + (!juegoTerminado? "nivel " + actualLevel : "juego") + "!"} className={classes.nextLevelTitle} />
                 <CardContent>
                     <Container maxWidth="md">
 
@@ -49,10 +49,23 @@ const ResultadoJuego = ({ puntajeNivel, puntajeTotal, actualLevel, juegoTerminad
                             <h1><span role="img" aria-label="medal">🏅</span> {"Tu puntaje es de " + puntajeNivel + " puntos!"} </h1>
                         </Paper>
 
-                        {!juegoTerminado?
-                            <Button variant="contained" color="primary" fullWidth="true" className={classes.nextLevelButton} 
-                                    onClick={() => onGoToNextLevelHandler()}>Siguiente nivel</Button>
-                            :
+                        {isSaving && <Button
+                            variant="contained"
+                            color="default"
+                            fullWidth="true"
+                            disabled
+                            className={classes.nextLevelButton}>
+                            Guardando puntaje...
+                                </Button>
+                        }
+
+                        {!isSaving && !juegoTerminado &&
+
+                            <Button variant="contained" color="primary" fullWidth="true" className={classes.nextLevelButton}
+                                onClick={() => onGoToNextLevelHandler()}>Siguiente nivel</Button>
+                        }
+
+                        {!isSaving && juegoTerminado &&
                             <div>
                                 <Paper className={classes.paperScore}>
                                     <h1><span role="img" aria-label="medal">🎖️</span> {"Tu puntaje TOTAL es de " + puntajeTotal + " puntos!"} </h1>
@@ -60,6 +73,7 @@ const ResultadoJuego = ({ puntajeNivel, puntajeTotal, actualLevel, juegoTerminad
                                 <Button component={Link} to="/games" variant="contained" color="secondary" fullWidth="true" className={classes.nextLevelButton}>Volver al menú</Button>
                             </div>
                         }
+
                     </Container>
                 </CardContent>
 

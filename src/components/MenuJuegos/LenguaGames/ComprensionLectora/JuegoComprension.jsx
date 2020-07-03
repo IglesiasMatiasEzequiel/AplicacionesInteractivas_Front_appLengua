@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import TituloGeneral from './TituloGeneral';
 import Texto from './Texto';
 import Respuesta from './Respuesta';
 import ResultadoJuego from './ResultadoJuego';
 import MenuJuegosNavbar from '../../MenuJuegosNavbar/MenuJuegosNavbar';
-import gameInfoData from "../../../../assets/jsonGames/ComprensionLectora/dataComprensionLectoraStructure";
 import Container from '@material-ui/core/Container';
 //import BackgroundCss from '../../Background.css';
 
@@ -15,117 +14,86 @@ import loading from '../../../../assets/Images/Loading_kids.gif';
 import { Typography } from '@material-ui/core';
 
 export class JuegoComprension extends React.Component {
-    
+
     constructor(props) {
         super(props)
-        this.state = {comprension: "comprensionJuego"}
-
-        // var level = gameInfoData.levels && gameInfoData.levels.length > 0 ? gameInfoData.levels[gameInfoData.levelIndex] : null;
-        // var pregunta = level && level.pregunta && level.pregunta.length > 0 ? level.pregunta[0] : null;
-        // var cantidadlevel = gameInfoData.levels.length;
+        this.state = { comprension: "comprensionJuego" }
 
         this.state = {
             juegoTerminado: false,
-            actualLevel:0,
-            actualPregunta:0,
-
-            puntajeNivel:0,
-            puntajeTotal:0,
+            actualLevel: 0,
+            actualPregunta: 0,
+            puntajeNivel: 0,
+            puntajeTotal: 0,
             nivelTerminado: false,
-            //gameData: gameInfoData,
-            // nivelActual: level,
-            // preguntaActual: pregunta,
-            // cantidadlevel: cantidadlevel,
-
             juego: null,
             nivelActual: null,
             preguntaActual: null,
             isLoading: true,
+            isSaving: false,
+            opcionElegida: null
         }
 
-        setTimeout(() => {
-            getJuegoById(3).then((response) => {
-                //console.log(response);
-                var primerNivel = response.data.niveles && response.data.niveles.length > 0 ? response.data.niveles[0] : null;
-                var primeraPregunta = primerNivel && primerNivel.preguntas && primerNivel.preguntas.length > 0 ? primerNivel.preguntas[0] : null;
+        getJuegoById(3).then((response) => {
 
+            var primerNivel = response.data.niveles && response.data.niveles.length > 0 ? response.data.niveles[0] : null;
+            var primeraPregunta = primerNivel && primerNivel.preguntas && primerNivel.preguntas.length > 0 ? primerNivel.preguntas[0] : null;
+
+            this.setState(prevState => ({
+                ...prevState,
+                juego: response.data,
+                nivelActual: primerNivel,
+                preguntaActual: primeraPregunta,
+                isLoading: false
+            }));
+        })
+            .catch(error => {
+                console.log(error);
                 this.setState(prevState => ({
                     ...prevState,
-                    juego: response.data,
-                    nivelActual: primerNivel,
-                    preguntaActual: primeraPregunta,
+                    juego: null,
+                    nivelActual: null,
+                    palabraActual: null,
                     isLoading: false
                 }));
-            })
-                .catch(error => {
-                    console.log(error);
-                    this.setState(prevState => ({
-                        ...prevState,
-                        juego: null,
-                        nivelActual: null,
-                        palabraActual: null,
-                        isLoading: false
-                    }));
-                });
-        }, 5000);
-        
+            });
+
 
         this.onOptionClick = this.onOptionClick.bind(this);
         this.onGoToNextLevel = this.onGoToNextLevel.bind(this);
 
     }
 
-/*     onOptionClick() {
-        var opcioneleguida = document.querySelector('input[name="customized-radios"]:checked').value;
-        if (opcioneleguida==this.state.nivelActual.preguntas[this.state.actualPregunta].rta_correcta) {
-            this.setState( {puntajeNivel: this.state.puntajeNivel + 15} );
-        }
+    handleChangeOpcion = (event) => {
 
         this.setState(prevState => ({
             ...prevState,
-            actualPregunta: this.state.actualPregunta + 1
+            opcionElegida: event?.target?.value ?? null
         }));
+    };
 
-        // Cuando termino un nivel
-        if (!this.state.juegoTerminado&&this.state.actualPregunta>=this.state.nivelActual.cantidadpreguntas-1) {
-            this.setState(prevState => ({
-                ...prevState,
-                actualPregunta: 0,
-                actualLevel: prevState.actualLevel + 1,
-                puntajeTotal: prevState.puntajeTotal + prevState.puntajeNivel,
-                nivelTerminado: true,
-            }));
-            //alert(this.state.actualLevel +'Pasaste de nivel .... Su puntaje del nivel es: '+this.state.puntajeNivel);
-        }
-        
-        // Cuando termino el juego completo
-        if (!this.state.juegoTerminado&&this.state.actualLevel==this.state.cantidadlevel-1) {
-            this.setState(prevState => ({
-                ...prevState,
-                actualPregunta: 0,
-                actualLevel: prevState.actualLevel + 1,
-                puntajeTotal: prevState.puntajeTotal + prevState.puntajeNivel,
-                nivelTerminado: true,
-                juegoTerminado: true,
-            }));
-            //alert('Terminaste el juego .... Su puntaje total del juego es: '+this.state.puntajeTotal);
-        }
-    } */
-    
-    //Usando el Backend
     onOptionClick() {
-        var opcioneleguida = document.querySelector('input[name="customized-radios"]:checked').value;
-        if (opcioneleguida==this.state.nivelActual.preguntas[this.state.actualPregunta].respuesta) {
-            this.setState( {puntajeNivel: this.state.puntajeNivel + 15} );
+        
+        var opcionElegida = parseInt(document.querySelector('input[name="radioButtons-preguntas"]:checked').value);
+
+        if (opcionElegida === this.state.nivelActual.preguntas[this.state.actualPregunta].respuesta) {
+
+            this.setState(prevState => ({
+                ...prevState,
+                puntajeNivel: prevState.puntajeNivel + prevState.nivelActual.levelScore 
+            }));
         }
 
         this.setState(prevState => ({
             ...prevState,
-            actualPregunta: this.state.actualPregunta + 1
+            actualPregunta: prevState.actualPregunta + 1,
+            opcionElegida: null
         }));
 
+        document.getElementsByName('radioButtons-preguntas')[0].checked = false;
+
         // Cuando termino un nivel
-        if (!this.state.juegoTerminado&&this.state.actualPregunta===2) {
+        if (!this.state.juegoTerminado && this.state.actualPregunta === this.state.nivelActual.preguntas.length - 1) {
             this.setState(prevState => ({
                 ...prevState,
                 actualPregunta: 0,
@@ -133,11 +101,30 @@ export class JuegoComprension extends React.Component {
                 puntajeTotal: prevState.puntajeTotal + prevState.puntajeNivel,
                 nivelTerminado: true,
             }));
-            //alert(this.state.actualLevel +'Pasaste de nivel .... Su puntaje del nivel es: '+this.state.puntajeNivel);
+
+            this.setState(prevState => ({
+                ...prevState,
+                isSaving: true
+            }));
+
+            createParticipacion(this.state.juego.id, this.state.nivelActual.id, this.state.puntajeNivel + this.state.nivelActual.levelScore)
+                .then(() => {
+                    this.setState(prevState => ({
+                        ...prevState,
+                        isSaving: false
+                    }));
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.setState(prevState => ({
+                        ...prevState,
+                        isSaving: false
+                    }));
+                });
         }
-        
+
         // Cuando termino el juego completo
-        if (!this.state.juegoTerminado&&this.state.actualLevel==this.state.cantidadlevel-1) {
+        if (!this.state.juegoTerminado && this.state.actualLevel === this.state.juego.niveles.length - 1 && this.state.actualPregunta === this.state.nivelActual.preguntas.length - 1) {
             this.setState(prevState => ({
                 ...prevState,
                 actualPregunta: 0,
@@ -146,34 +133,25 @@ export class JuegoComprension extends React.Component {
                 nivelTerminado: true,
                 juegoTerminado: true,
             }));
-            //alert('Terminaste el juego .... Su puntaje total del juego es: '+this.state.puntajeTotal);
         }
     }
-
-
-    //onGoToNextLevel() {
-    //     this.setState(prevState => ({
-    //         ...prevState,
-    //         nivelActual: prevState.gameData.levels[prevState.actualLevel],
-    //         nivelTerminado: false,
-    //     }));
-    //};
 
     //Backend
     onGoToNextLevel() {
         this.setState(prevState => ({
             ...prevState,
-            nivelActual: prevState.juego.niveles[prevState.levelIndex],
-            preguntaActual: prevState.juego.niveles[prevState.levelIndex].preguntas[0],
+            nivelActual: prevState.juego.niveles[prevState.actualLevel],
+            preguntaActual: prevState.juego.niveles[prevState.actualPregunta].preguntas[0],
             nivelTerminado: false,
+            puntajeNivel: 0
         }));
     };
 
-   render() {
+    render() {
 
         return (
             <div className="backgroundImage">
-                <MenuJuegosNavbar/>
+                <MenuJuegosNavbar />
 
                 {!this.state.isLoading &&
                     <div>
@@ -182,17 +160,23 @@ export class JuegoComprension extends React.Component {
                             <div>
                                 <TituloGeneral level={this.state.nivelActual} />
                                 <Container maxWidth="md">
-                                    <Texto level={this.state.nivelActual}/>
+                                    <Texto level={this.state.nivelActual} />
                                 </Container>
                                 <Container maxWidth="md">
-                                    <Respuesta level={this.state.nivelActual} actualPregunta={this.state.actualPregunta} onOptionClick={this.onOptionClick}/> 
+                                    <Respuesta 
+                                        level={this.state.nivelActual} 
+                                        actualPregunta={this.state.actualPregunta} 
+                                        onOptionClick={this.onOptionClick} 
+                                        handleChangeOpcion={this.handleChangeOpcion}  
+                                        opcionElegida={this.state.opcionElegida}/>
                                 </Container>
                             </div>
                             :
-                            <ResultadoJuego puntajeNivel={this.state.puntajeNivel} puntajeTotal={this.state.puntajeTotal} 
-                                            actualLevel={this.state.actualLevel}               
-                                            juegoTerminado={this.state.juegoTerminado}
-                                            onGoToNextLevelHandler={this.onGoToNextLevel}/>
+                            <ResultadoJuego puntajeNivel={this.state.puntajeNivel} puntajeTotal={this.state.puntajeTotal}
+                                actualLevel={this.state.actualLevel}
+                                juegoTerminado={this.state.juegoTerminado}
+                                onGoToNextLevelHandler={this.onGoToNextLevel}
+                                isSaving={this.state.isSaving} />
                         }
                     </div>
                 }
@@ -205,7 +189,7 @@ export class JuegoComprension extends React.Component {
 
             </div>
         );
-   } 
+    }
 }
 
 export default (JuegoComprension);

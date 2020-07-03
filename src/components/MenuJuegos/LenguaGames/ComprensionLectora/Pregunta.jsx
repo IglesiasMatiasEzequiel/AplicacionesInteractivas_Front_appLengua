@@ -64,24 +64,14 @@ function StyledRadio(props) {
   );
 }
 
-export default function CustomizedRadios ({ level, actualPregunta }) {
+export default function Preguntas ({ level, actualPregunta, opcionElegida, handleChangeOpcion }) {
   
-  const [value, setValue] = React.useState('op1');
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
   return (
     <FormControl component="fieldset">
-      {/* <FormLabel component="legend">¿Dónde se está instalando el circo?</FormLabel> */}
-      <RadioGroup aria-label="gender" name="customized-radios" value={value} onChange={handleChange}> 
-        {/* <FormControlLabel value="op1" control={<StyledRadio />} label={level.opciones[actualPregunta].op1} />
-        <FormControlLabel value="op2" control={<StyledRadio />} label={level.opciones[actualPregunta].op2} />
-        <FormControlLabel value="op3" control={<StyledRadio />} label={level.opciones[actualPregunta].op3} /> */}
-        <FormControlLabel value="op1" control={<StyledRadio />} label={level.preguntas[actualPregunta].opcion1} />
-        <FormControlLabel value="op2" control={<StyledRadio />} label={level.preguntas[actualPregunta].opcion2} />
-        <FormControlLabel value="op3" control={<StyledRadio />} label={level.preguntas[actualPregunta].opcion3} />
+      <RadioGroup aria-label="gender" name="radioButtons-preguntas" value={opcionElegida?.toString()} onChange={(e) => handleChangeOpcion(e) }> 
+        <FormControlLabel value="1" control={<StyledRadio />} label={level.preguntas[actualPregunta].opcion1} />
+        <FormControlLabel value="2" control={<StyledRadio />} label={level.preguntas[actualPregunta].opcion2} />
+        <FormControlLabel value="3" control={<StyledRadio />} label={level.preguntas[actualPregunta].opcion3} />
       </RadioGroup>
     </FormControl>
   );
