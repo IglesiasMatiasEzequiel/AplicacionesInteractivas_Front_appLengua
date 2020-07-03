@@ -140,6 +140,8 @@ export class JuegoComprension extends React.Component {
 
     render() {
 
+        console.log(this.state.juego);
+
         return (
             <div className="backgroundImage">
                 <MenuJuegosNavbar />
@@ -169,8 +171,6 @@ export class JuegoComprension extends React.Component {
                                 onGoToNextLevelHandler={this.onGoToNextLevel}
                                 isSaving={this.state.isSaving} />
                         } */}
-
-                        <h1>{this.state.juego}</h1>
                     </div>
                 }
                 {this.state.isLoading &&
