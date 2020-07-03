@@ -178,7 +178,7 @@ export class JuegoComprension extends React.Component {
         else
         {
             return (
-                <div>
+                <div className="backgroundImage">
                     <Container maxWidth="md" style={{ textAlign: "center", paddingTop: "25vh" }}>
                         <img src={loading} alt="Cargando..." style={{ height: "25vh", marginBottom: "2vh" }} />
                         <Typography variant="h4">Cargando juego...</Typography>
