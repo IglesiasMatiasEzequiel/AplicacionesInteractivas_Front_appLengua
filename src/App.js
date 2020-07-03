@@ -16,7 +16,6 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path="/" component={Landing} />
-        <Route exact path="/auth/login" component={Landing} />
         <ProtectedRoute exact path="/ranking" component={Ranking}/>
         <ProtectedRoute exact path="/games" component={MenuJuegos} />
         <ProtectedRoute exact path="/syllableGame" component={JuegoSilabas}/>

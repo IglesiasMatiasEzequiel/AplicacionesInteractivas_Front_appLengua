@@ -10,6 +10,7 @@ import { getSessionName } from "../../services/authenticationServices";
 import { Link } from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
+import BackgroundCss from './Background.css';
 
 export default class MenuJuegos extends Component {
 

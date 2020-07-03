@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const NextLevel = ({ hasNextLevel, levelScore, totalScore, correctWords, incorrectWords, onGoToNextLevelHandler }) => {
+const NextLevel = ({ hasNextLevel, levelScore, totalScore, correctWords, incorrectWords, onGoToNextLevelHandler, isSaving }) => {
 
     const classes = useStyles();
 
@@ -59,20 +59,46 @@ const NextLevel = ({ hasNextLevel, levelScore, totalScore, correctWords, incorre
                             <h1><span role="img" aria-label="medal">🏅</span> {"Tu puntaje es de " + levelScore + " puntos!"} </h1>
                         </Paper>
 
-                        {hasNextLevel ?
+                        {isSaving && <Button
+                                    variant="contained"
+                                    color="default"
+                                    fullWidth="true"
+                                    disabled
+                                    className={classes.nextLevelButton}>
+                                    Guardando puntaje...
+                                </Button>
+                        }
 
-                            <Button variant="contained" color="primary" fullWidth="true" className={classes.nextLevelButton} onClick={() => onGoToNextLevelHandler()}>Siguiente nivel</Button>
+                        {!isSaving && hasNextLevel &&
 
-                            :
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                fullWidth="true"
+                                className={classes.nextLevelButton}
+                                onClick={() => onGoToNextLevelHandler()}>
+                                Siguiente nivel
+                             </Button>
+                        }
 
+                        {!isSaving && !hasNextLevel &&
                             <div>
-                            <Paper className={classes.paperScore}>
-                                <h1><span role="img" aria-label="medal">🎖️</span> {"Tu puntaje TOTAL es de " + totalScore + " puntos!"} </h1>
-                            </Paper>
+                                <Paper className={classes.paperScore}>
+                                    <h1><span role="img" aria-label="medal">🎖️</span> {"Tu puntaje TOTAL es de " + totalScore + " puntos!"} </h1>
+                                </Paper>
 
-                            <Button component={Link} to="/games" variant="contained" color="secondary" fullWidth="true" className={classes.nextLevelButton}>Volver al menú</Button>
+                                <Button
+                                    component={Link}
+                                    to="/games"
+                                    variant="contained"
+                                    color="secondary"
+                                    fullWidth="true"
+                                    className={classes.nextLevelButton}>
+                                    Volver al menú
+                                </Button>
                             </div>
                         }
+
                     </Container>
                 </CardContent>
 

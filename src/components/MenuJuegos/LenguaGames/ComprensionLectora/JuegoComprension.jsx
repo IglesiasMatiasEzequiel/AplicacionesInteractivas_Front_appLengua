@@ -5,7 +5,6 @@ import Respuesta from './Respuesta';
 import ResultadoJuego from './ResultadoJuego';
 import MenuJuegosNavbar from '../../MenuJuegosNavbar/MenuJuegosNavbar';
 import Container from '@material-ui/core/Container';
-//import BackgroundCss from '../../Background.css';
 
 // BackEnd
 import { getJuegoById } from '../../../../services/juegosServices';
@@ -34,30 +33,31 @@ export class JuegoComprension extends React.Component {
             opcionElegida: null
         }
 
-        getJuegoById(3).then((response) => {
+        setTimeout(() => {
+            getJuegoById(3).then((response) => {
 
-            var primerNivel = response.data.niveles && response.data.niveles.length > 0 ? response.data.niveles[0] : null;
-            var primeraPregunta = primerNivel && primerNivel.preguntas && primerNivel.preguntas.length > 0 ? primerNivel.preguntas[0] : null;
+                var primerNivel = response.data.niveles && response.data.niveles.length > 0 ? response.data.niveles[0] : null;
+                var primeraPregunta = primerNivel && primerNivel.preguntas && primerNivel.preguntas.length > 0 ? primerNivel.preguntas[0] : null;
 
-            this.setState(prevState => ({
-                ...prevState,
-                juego: response.data,
-                nivelActual: primerNivel,
-                preguntaActual: primeraPregunta,
-                isLoading: false
-            }));
-        })
-            .catch(error => {
-                console.log(error);
                 this.setState(prevState => ({
                     ...prevState,
-                    juego: null,
-                    nivelActual: null,
-                    palabraActual: null,
+                    juego: response.data,
+                    nivelActual: primerNivel,
+                    preguntaActual: primeraPregunta,
                     isLoading: false
                 }));
-            });
-
+            })
+                .catch(error => {
+                    console.log(error);
+                    this.setState(prevState => ({
+                        ...prevState,
+                        juego: null,
+                        nivelActual: null,
+                        palabraActual: null,
+                        isLoading: false
+                    }));
+                });
+        }, 1500);
 
         this.onOptionClick = this.onOptionClick.bind(this);
         this.onGoToNextLevel = this.onGoToNextLevel.bind(this);

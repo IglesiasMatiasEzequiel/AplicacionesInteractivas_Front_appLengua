@@ -33,7 +33,7 @@ const OrtografiaChips = ({ title, items, onNoItemsSeverity, onNoItemsAlert }) =>
 
                             items.map((item) => {
                                 return (
-                                    <Chip key={item.id} label={item.word} avatar={<Avatar src={item.img} />} color="primary" className={classes.chip}/>
+                                    <Chip key={item.id} label={item.palabra} avatar={<Avatar src={item.imgPath} />} color="primary" className={classes.chip}/>
                                 );
                             })
                         :    

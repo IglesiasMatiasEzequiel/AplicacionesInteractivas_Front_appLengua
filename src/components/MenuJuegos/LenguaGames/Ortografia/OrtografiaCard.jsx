@@ -10,7 +10,7 @@ import Container from '@material-ui/core/Container';
 const useStyles = makeStyles((theme) => ({
     root: {
         'text-align': 'center',
-        margin : '15px auto'
+        margin: '15px auto'
     },
     media: {
         height: 0,
@@ -30,19 +30,29 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const OrtografiaCard = ({ level, word, onOptionClick }) => {
+const colors = ["primary", "secondary", "default"];
+
+const OrtografiaCard = ({ level, word, wordIndex, onOptionClick }) => {
 
     const classes = useStyles();
 
     return (
         <Card className={classes.root}>
-            <CardHeader title={word.word} />
-            <CardMedia className={classes.media} image={word.img} />
-            <OrtografiaPB currentWordNumber={level.wordIndex + 1} totalWordsNumber={level.words.length}/>
+            <CardHeader title={word.palabra} />
+            <CardMedia className={classes.media} image={word.imgPath} />
+            <OrtografiaPB currentWordNumber={wordIndex + 1} totalWordsNumber={level.palabras.length} />
             <Container maxWidth="md" className={classes.buttonsContainer}>
-                {level.options.map((options) => {
+
+                {level.opciones.map((option, index) => {
                     return (
-                         <Button key={options.id} variant="contained" color={options.color} className={classes.OrtografiaCardButton} onClick={() => onOptionClick(options)}>{options.text}</Button>
+                        <Button
+                            key={index}
+                            variant="contained"
+                            color={colors[index]}
+                            className={classes.OrtografiaCardButton}
+                            onClick={() => onOptionClick(option)}>
+                            {option.opcion}
+                        </Button>
                     );
                 })}
             </Container>

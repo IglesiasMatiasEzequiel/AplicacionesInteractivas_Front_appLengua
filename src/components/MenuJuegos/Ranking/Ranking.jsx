@@ -21,8 +21,6 @@ class Ranking extends Component {
 
         listRanking().then((response) => {
 
-            console.log(response.data);
-
             this.setState(prevState => ({
                 ...prevState,
                 isLoading: false,
