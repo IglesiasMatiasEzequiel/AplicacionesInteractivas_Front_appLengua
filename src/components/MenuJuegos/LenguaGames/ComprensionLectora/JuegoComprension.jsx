@@ -41,7 +41,7 @@ export class JuegoComprension extends React.Component {
 
         const responseJuego = await getJuegoById(3);
         
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve, 3000));
         
         var primerNivel = responseJuego.data.niveles && responseJuego.data.niveles.length > 0 ? responseJuego.data.niveles[0] : null;
         var primeraPregunta = primerNivel && primerNivel.preguntas && primerNivel.preguntas.length > 0 ? primerNivel.preguntas[0] : null;
@@ -148,7 +148,7 @@ export class JuegoComprension extends React.Component {
 
                 {!this.state.isLoading &&
                     <div>
-                        {/* {!this.state.nivelTerminado ?
+                        {!this.state.nivelTerminado && this.state.juego ?
 
                             <div>
                                 <TituloGeneral level={this.state.nivelActual} />
@@ -170,7 +170,7 @@ export class JuegoComprension extends React.Component {
                                 juegoTerminado={this.state.juegoTerminado}
                                 onGoToNextLevelHandler={this.onGoToNextLevel}
                                 isSaving={this.state.isSaving} />
-                        } */}
+                        }
                     </div>
                 }
                 {this.state.isLoading &&
